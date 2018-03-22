@@ -33,5 +33,10 @@ namespace PersonDB.Model
 
         [InverseProperty("Person")]
         public ICollection<Table2Phone> Table2Phone { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}, {Age}";
+        }
     }
 }
