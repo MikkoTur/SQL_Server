@@ -5,38 +5,57 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonDB.Model
 {
-    [Table("Table_1_Person")]
-    public partial class Table1Person
+    public partial class Person
     {
-        public Table1Person()
+        public Person()
         {
-            Table2Phone = new HashSet<Table2Phone>();
+            Phone = new HashSet<Phone>();
         }
 
-        public Table1Person(string name, short? age)
+        public Person(string name, short? age)
         {
             Name = name;
             Age = age;
+            Phone = new HashSet<Phone>();
         }
 
-        public Table1Person(string name, short? age, ICollection<Table2Phone> table2Phone)
+        public Person(string name, short? age, ICollection<Phone> phone)
         {
             Name = name;
             Age = age;
-            Table2Phone = table2Phone;
+            Phone = phone;
         }
 
         public long Id { get; set; }
-        [Column(TypeName = "nchar(10)")]
+        [Column(TypeName = "nchar(25)")]
         public string Name { get; set; }
         public short? Age { get; set; }
 
         [InverseProperty("Person")]
-        public ICollection<Table2Phone> Table2Phone { get; set; }
+        public ICollection<Phone> Phone { get; set; }
+
+
+
+
 
         public override string ToString()
         {
-            return $"{Name}, {Age}";
+            string retValue = $"{Name}, {Age} ";
+
+
+            //if (Phone.Count == 0)
+            //    retValue += "Ei puhelinta!\n";
+            //foreach (var phnPhone in Phone)
+            //{
+            //    retValue += $"\n   {phnPhone.ToString()}";
+            //}
+            //retValue += "\n-------------\n";
+            return retValue;
+        }
+
+        public string ShowData()
+        {
+            return $"{Id}, {Name}, {Age}";
         }
     }
 }

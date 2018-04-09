@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PersonDB.Model
 {
-    public partial class Tuntitehtava2Context : DbContext
+    public partial class PersondbContext : DbContext
     {
-        public virtual DbSet<Table1Person> Table1Person { get; set; }
-        public virtual DbSet<Table2Phone> Table2Phone { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<Phone> Phone { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,12 +20,13 @@ namespace PersonDB.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Table2Phone>(entity =>
+            modelBuilder.Entity<Phone>(entity =>
             {
                 entity.HasOne(d => d.Person)
-                    .WithMany(p => p.Table2Phone)
+                    .WithMany(p => p.Phone)
                     .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK_Table_2_Phone_Table_1_Person");
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_Phone_Person");
             });
         }
     }

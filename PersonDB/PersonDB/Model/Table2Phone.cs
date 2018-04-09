@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonDB.Model
 {
-    [Table("Table_2_Phone")]
-    public partial class Table2Phone
+    public partial class Phone
     {
         public long Id { get; set; }
         [Column(TypeName = "nchar(10)")]
@@ -16,7 +15,13 @@ namespace PersonDB.Model
         public long? PersonId { get; set; }
 
         [ForeignKey("PersonId")]
-        [InverseProperty("Table2Phone")]
-        public Table1Person Person { get; set; }
+        [InverseProperty("Phone")]
+        public Person Person { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"{Type} - {Number}";
+        }
     }
 }
